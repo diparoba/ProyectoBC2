@@ -17,8 +17,9 @@ Servo servo;
 #define IN3  7
 #define IN4  8
 
-// Define el número de pasos por revolución y crea un objeto Stepper
-const int stepsPerRevolution = 250;
+// Define el número de pasos por revolución y crea un objeto Stepper <--- CHRISTIAN
+const int stepsPerRevolution = 200;
+
 Stepper myStepper(stepsPerRevolution, IN1, IN2, IN3, IN4);
 
 // Conexión de sensor de barrera
@@ -38,7 +39,7 @@ void setup() {
   digitalWrite(s0, HIGH);
   digitalWrite(s1, HIGH);
   pinMode(presencia, INPUT);
-  myStepper.setSpeed(60); // Establece la velocidad del motor 👹 a menor velocidad mayor fuerza del motor
+  myStepper.setSpeed(60); // Establece la velocidad del motor 👹 a menor velocidad mayor fuerza del motor <--- CHRISTIAN
 }
 
 void loop() {
@@ -95,15 +96,15 @@ int medirColor() {
   Serial.print("B:  ");
   Serial.print(blue);
   Serial.print("  ");
-  if (red < blue && red < green) {
+  if (red > blue && red > green) {
     Serial.println("Rojo");
     return 1;
   }
-  else if (blue < red && blue < green) {
+  else if (blue > red && blue > green) {
     Serial.println("Azul");
     return 3;
   }
-  else if (green < red && green < blue) {
+  else if (green > red && green > blue) {
     Serial.println("Verde");
     return 2;
   }
